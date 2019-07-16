@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
-
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import {HeroService} from '../hero.service'
+import { TouchSequence } from 'selenium-webdriver';
 
 
 @Component({
@@ -12,23 +14,30 @@ import {HeroService} from '../hero.service'
 export class HeroesComponent implements OnInit {
   
   heroes: Hero[];
-  selectedHero: Hero;
+  hero: Hero;
+  
 
-  constructor(private heroService: HeroService){}
+  constructor(
+    private heroService: HeroService,
+    private route: ActivatedRoute,
+    private location:Location
+  ){}
 
 
+  ngOnInit() {
+    this.getHeroes();
+    /* this.getHero(); */
+  }
 
   getHeroes(): void {
     this.heroService.getHeroesFromService()
           .subscribe(heroes => this.heroes = heroes)
   }
 
-  ngOnInit() {
-    this.getHeroes();
-  }
+/*   getHero(): void{
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.heroService.getHeroFromserv(id)
+          .subscribe(hero=>this.hero=hero)
+  } */
 
-  onSelect(hero:Hero): void {
-    this.selectedHero=hero;
-
-  }
 }
