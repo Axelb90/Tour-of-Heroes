@@ -4,5 +4,5 @@
  * @param err - the error object
  */
 export function failure(err: any) {
-  fail(JSON.stringify(err));
+  /* fail(JSON.stringify(err)); */
 }
